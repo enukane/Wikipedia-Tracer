@@ -14,7 +14,7 @@ How To Use
 4. Navigate through Wikipedia
 5. Push "Wikipedia Tracer" icon and push "Show" button
 6. Now you see your history and how you spend time with Wikipedia...
-![wikitracer]{http://www.btnq.org/wikitracer.png)
+![wikitracer](http://www.btnq.org/wikitracer.png)
 
 Thanks
 -----
