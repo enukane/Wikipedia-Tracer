@@ -1,0 +1,29 @@
+h1 {
+	font-family: Gerogia,serif;
+	color:#4E443C;
+	font-variant: small-caps; text-transform: none; font-weight: 100; margin-bottom: 0;
+}
+
+a {
+	color:#4E443C;
+}
+
+table {
+	border-collapse: collapse; border-spacing: 0;
+	width: 100%;
+	margin-bottom: 30px;
+}
+
+th, td {
+	padding: 10px 20px;
+	color: #1D5C79;
+}
+
+th {
+	text-align: left;
+	border-bottom: 2px solid #1D5C79;
+}
+
+td {
+	border-bottom: 1px solid #DDD;
+}

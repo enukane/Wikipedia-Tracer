@@ -21,9 +21,22 @@ function get_click_handler(link){
 function link_down_traced(link){
 	if(link){
 		var next_url = link.getAttribute("href");
-		// assume inter-wikipedia link as"/wiki/***"
-		//modify if changed
+
+		// title is always after last "/"
 		var next_title = next_url.split("/").pop();
+
+		// There is two case in next_url:
+		//   1) has full url on *.wikipedia.org/wiki/*
+		//      this means we jump to different language.
+		//      the case, use next_url as is.
+		//   2) has "/wiki/*"
+		//      this means we jump to different page in same language.
+		//      the case, must supply *.wikipedia.org from current_url
+		if (next_url.search(/^.+\.wikipedia\.org\/wiki\//) != -1) {
+			// bingo! do nothing;
+		} else {
+			next_url = current_url.match(/^.+\.wikipedia\.org/) + next_url;
+		}
 
 		console.log("title: "+current_title
 			+"; url: "+current_url

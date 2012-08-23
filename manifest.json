@@ -1,14 +1,17 @@
 {
 		"name": "Wikipedia Tree",
-		"version": "0.1",
-		"description": "Show tree of links you passed through Wikipedia",
+		"version": "1.0",
+		"description": "Show how you walked and spent time through Wikipedia",
 		"background_page": "background.html",
 		"options_page": "options.html",
 		"browser_action":{
-			"default_icon": "icon.png",
+			"default_icon": "icon48.png",
 			"default_title": "Wikipedia Tree",
 			"default_popup": "pa_popup.html"
 		},
+		"icons": { 
+			"48": 	"icon48.png",
+			"128":	"icon128.png"	 },
 		"permissions": [
 				"tabs", "http://*.wikipedia.org/wiki/*"
 		],

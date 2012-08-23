@@ -1,6 +1,10 @@
 buffer = null; // {tabid, old_title, old_url, new_title, new_url}
 console.log("hell");
 
+function match_wikipedia(url){
+	return url.search(/^.+\.wikipedia\.org\/wiki\//);
+}
+
 function link_traced(params){
 	var old_title = UnescapeUTF8(params.old_title);
 	old_title = old_title.split("#")[0];
@@ -8,15 +12,28 @@ function link_traced(params){
 	var new_title = UnescapeUTF8(params.new_title);
 	new_title = new_title.split("#")[0];
 	var new_url = params.new_url;
+
+	// check if it's inside wikipedia
+	if (match_wikipedia(old_url) == -1) {
+		return;
+	}
+	if (match_wikipedia(new_url) == -1) {
+		return;
+	}
 	
-	// what to do?
+	// don't record if same
+	if (old_title == new_title) {
+		return;
+	}
+
 	console.log("TRACED : "
-		+ UnescapeUTF8(params.old_title)
+		+ old_title
 		+ " -> " 
-		+ UnescapeUTF8(params.new_title)
+		+ new_title
 	);
 
-	// element = {date, old_title, new_title}
+	// push this nav to localStorage
+	// element = {date, old_title, new_title, old_urlf, new_url}
 	var history = localStorage.wiki_trace;
 	var trace_list = null;
 	if( history ){
@@ -26,17 +43,13 @@ function link_traced(params){
 	}
 
 	var now = new Date();
-	var now_string = now.getFullYear()+"/"
-			+now.getMonth()+"/"
-			+now.getDate()+" "
-			+now.getHours()+":"
-			+now.getMinutes()+":"
-			+now.getSeconds();
 
 	trace_list.push({
-			"date": now_string,
+			"date": now,
 			"old_title": old_title,
+			"old_url": old_url,
 			"new_title": new_title,
+			"new_url" : new_url,
 	});
 
 	var history_str = JSON.stringify(trace_list);
@@ -59,14 +72,15 @@ chrome.extension.onRequest.addListener(
 				"new_title": request.new_title, 
 				"new_url": request.new_url
 			};
-			// when clicked on "#****", jumps within the page
+
+			// When clicked on "#****", it jumps within the page.
 			// but chrome gives request.new_title="#***"
 			// the case, new_title must be same as old one
 			if( buffer.new_title.charAt(0) == "#"){
-			buffer.new_title = buffer.old_title;
-		}
+				buffer.new_title = buffer.old_title;
+			}
 
-		}else if( request.type == "updated" ){
+		} else if( request.type == "updated" ){
 			link_traced(buffer);	
 			buffer = null;
 		}
