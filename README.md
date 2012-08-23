@@ -26,5 +26,7 @@ ecl.js follows its own.
 
 others,
 Copyright &copy; 2012 enukane
+
+
 Distributed under the [MIT License][mit].
 [MIT]: http://www.opensource.org/licenses/mit-license.php
